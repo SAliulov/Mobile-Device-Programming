@@ -3,8 +3,8 @@ import 'dart:math';
 enum Mood { happy, sleepy, hungry, playful }
 
 class Animal {
-  String name;
-  String species;
+  final String name;
+  final String species;
   Mood mood;
   int energy;
 
@@ -30,7 +30,7 @@ class Animal {
 
   @override
   String toString() {
-    return '$name the $species is feeling $mood with energy $energy.';
+    return '$name the $species is feeling ${mood.name} with energy $energy.';
   }
 }
 
@@ -68,7 +68,7 @@ void main() async {
 
   animals.sort((a, b) => b.energy.compareTo(a.energy));
 
-  for (var animal in animals) {
+  for (final animal in animals) {
     print(animal);
     animal.play();
     print('After playing: $animal\n');
