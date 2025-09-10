@@ -2,75 +2,82 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+enum Mood { happy, sleepy, hungry, playful }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Animal {
+  String name;
+  String species;
+  Mood mood;
+  int energy;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Алиулов Салих Рамисович. Пибд-31'),
-    );
+  Animal(this.name, this.species, this.mood, this.energy);
+
+  void updateMood() {
+    if (energy > 70) {
+      mood = Mood.playful;
+    } else if (energy > 40) {
+      mood = Mood.happy;
+    } else if (energy > 10) {
+      mood = Mood.sleepy;
+    } else {
+      mood = Mood.hungry;
+    }
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  Color _color = Colors.orangeAccent;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      _color = Color(
-        (Random().nextDouble() * 0xFFFFFF).toInt(),
-      ).withOpacity(1.0);
-    });
+  void play() {
+    energy -= Random().nextInt(20) + 10;
+    if (energy < 0) energy = 0;
+    updateMood();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: _color, title: Text(widget.title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            if (_counter > 10)
-              Text(
-                "Зачем ты кликаешь?",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        backgroundColor: _color,
-        tooltip: 'Increment',
-        child: const Icon(Icons.local_airport_sharp),
-      ),
-    );
+  String toString() {
+    return '$name the $species is feeling $mood with energy $energy.';
+  }
+}
+
+extension MostEnergetic on List<Animal> {
+  Animal? get mostEnergetic {
+    if (isEmpty) return null;
+    Animal maxAnimal = this[0];
+
+    for (var animal in this) {
+      if (animal.energy > maxAnimal.energy) {
+        maxAnimal = animal;
+      }
+    }
+    return maxAnimal;
+  }
+}
+
+Future<List<Animal>> adoptAnimals() async {
+  await Future.delayed(Duration(seconds: 2));
+
+  return [
+    Animal('Leo', 'Lion', Mood.happy, 80),
+    Animal('Bella', 'Bird', Mood.playful, 90),
+    Animal('Max', 'Dog', Mood.sleepy, 50),
+    Animal('Luna', 'Cat', Mood.hungry, 20),
+  ];
+}
+
+void main() async {
+  print('Adopting animals from the shelter... Please wait!');
+
+  List<Animal> animals = await adoptAnimals();
+
+  print('\nAnimals adopted:');
+
+  animals.sort((a, b) => b.energy.compareTo(a.energy));
+
+  for (var animal in animals) {
+    print(animal);
+    animal.play();
+    print('After playing: $animal\n');
+  }
+
+  var energeticOne = animals.mostEnergetic;
+  if (energeticOne != null) {
+    print('The most energetic animal now is: $energeticOne');
   }
 }
