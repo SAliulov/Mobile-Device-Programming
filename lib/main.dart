@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-
 enum Mood { happy, sleepy, hungry, playful }
 
 class Animal {
