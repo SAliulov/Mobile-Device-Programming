@@ -57,7 +57,7 @@ Future<List<Animal>> adoptAnimals() async {
     Animal('Leo', 'Lion', Mood.happy, 80),
     Animal('Bella', 'Bird', Mood.playful, 90),
     Animal('Max', 'Dog', Mood.sleepy, 50),
-    Animal('Luna', 'Cat', Mood.hungry, 20),
+    Animal('Eugene', 'Cat', Mood.hungry, 20),
   ];
 }
 
