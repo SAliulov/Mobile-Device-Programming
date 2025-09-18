@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+//Никаких изменений от мастера нет, просто для структуры создам первую ветку
 void main() {
   runApp(const MyApp());
 }
