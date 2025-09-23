@@ -51,6 +51,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: ClashRoyaleRegular
+      fonts:
+        - asset: assets/fonts/Clash_Regular.ttf
+    - family: ClashRoyaleBold
+      fonts:
+        - asset: assets/fonts/Clash_Bold.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -84,6 +91,12 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  #
+  #   - family: ClashRoyale
+  #     fonts:
+  #     - asset: assets/fonts/Clash_Regular.otf
+  #     - asset: assets/fonts/Clash_Bold.otf
+  #       weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
